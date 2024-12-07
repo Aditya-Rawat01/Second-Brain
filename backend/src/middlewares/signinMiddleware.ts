@@ -11,7 +11,8 @@ export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=
     })
     
     if (userFound!==null) {
-        const token = jwt.sign(username,JWTsecret)
+        const token = jwt.sign(userFound._id,JWTsecret)
+        //localStorage.setItem("token",token) ~~~~~~~~~~~~~~~ put it in frontend while signing up
         req.token=token
         next()   
     }

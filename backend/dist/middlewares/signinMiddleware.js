@@ -24,6 +24,7 @@ const signinMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         });
         if (userFound !== null) {
             const token = jsonwebtoken_1.default.sign(username, jwtsecret_1.JWTsecret);
+            //localStorage.setItem("token",token) ~~~~~~~~~~~~~~~ put it in frontend while signing up
             req.token = token;
             next();
         }

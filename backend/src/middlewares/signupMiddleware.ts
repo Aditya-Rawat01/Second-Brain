@@ -13,22 +13,33 @@ export const signupMiddleware=async (req:Request,res:Response,next:NextFunction)
             password:password})
 
             if (ans.success) {
-                try {
-                   await users.create({
-                    username:username,
-                    password:password
-
+                const existingUser=await users.findOne({
+                    username:username
                 })
-                next() 
-                } catch (error) {
-                    res.json({
-                        "msg":"Error while creating a new user"
-                    })
-                    return;
-                }
-                
-            
+                        if (existingUser===null) {
+                            try {
+                                await users.create({
+                                username:username,
+                                password:password
+
+                            })
+                            next() 
+                        } catch (error) {
+                                res.json({
+                                    "msg":"Error while creating a new user"
+                                })
+                                return;
+                        }
+                        
+                    
+                    } else {
+                        res.json({
+                            "msg":"Username already exists. Try signing in"
+                        })
+                        return;
+                    }
             }
+                
             else {
                 res.json({
                     "msg":ans.error.issues[0].message

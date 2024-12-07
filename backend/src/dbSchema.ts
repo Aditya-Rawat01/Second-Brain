@@ -1,8 +1,23 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 const userSchema=new Schema({
     username:String,
     password:String
 })
-
 export const users = model("users",userSchema)
+
+
+const neuronSchema= new Schema({
+    type:{
+        type: String,
+        enum:["twitter","youtube","pdf"]
+    },
+    url:String,
+    title:String,
+    userId:{type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    },
+    createdAt:String  // try to put it in date formt if could
+})
+
+export const neuron =model("neurons",neuronSchema)
