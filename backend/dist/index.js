@@ -6,18 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const db_connection_1 = require("./connection_strings/db_connection");
-const userMiddleware_1 = require("./middlewares/userMiddleware");
+const signupMiddleware_1 = require("./middlewares/signupMiddleware");
+const signinMiddleware_1 = require("./middlewares/signinMiddleware");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 mongoose_1.default.connect(db_connection_1.dbURL);
-app.post("/signup", userMiddleware_1.userMiddleware, (req, res) => {
+app.post("/signup", signupMiddleware_1.signupMiddleware, (req, res) => {
     res.json({
-        msg: "signedup"
+        msg: "New User signed up successfully"
     });
 });
-app.post("/signin", userMiddleware_1.userMiddleware, (req, res) => {
+app.post("/signin", signinMiddleware_1.signinMiddleware, (req, res) => {
     res.json({
-        msg: "signedin"
+        msg: req.token
     });
 });
 app.listen(3000);

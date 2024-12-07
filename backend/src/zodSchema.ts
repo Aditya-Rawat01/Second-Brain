@@ -16,3 +16,4 @@ export const UserSchema= zod.object({
                 .refine((password)=>password.match(/[a-z]/)!==null,"Password must contain one small letter")
 
 })
+export type reqBody=z.infer<typeof UserSchema>
