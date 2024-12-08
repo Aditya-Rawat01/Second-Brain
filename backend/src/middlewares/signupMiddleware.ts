@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { reqBody, UserSchema } from "../zodSchema";
+import { reqBody, UserZodSchema } from "../zodSchema";
 import { users } from "../dbSchema";
 
 
@@ -8,7 +8,7 @@ export const signupMiddleware=async (req:Request,res:Response,next:NextFunction)
     const {username,password}:reqBody=req.body
 
 
-        const ans=UserSchema.safeParse({
+        const ans=UserZodSchema.safeParse({
             username:username,
             password:password})
 

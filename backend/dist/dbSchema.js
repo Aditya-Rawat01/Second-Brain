@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.neuron = exports.users = void 0;
+exports.sharedBrain = exports.neuron = exports.users = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const userSchema = new mongoose_1.Schema({
     username: String,
@@ -53,3 +53,12 @@ const neuronSchema = new mongoose_1.Schema({
     createdAt: String // try to put it in date formt if could
 });
 exports.neuron = (0, mongoose_1.model)("neurons", neuronSchema);
+const sharedBrainSchema = new mongoose_1.Schema({
+    userId: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    url: String,
+    share: Boolean
+});
+exports.sharedBrain = mongoose_1.default.model("sharedbrains", sharedBrainSchema);

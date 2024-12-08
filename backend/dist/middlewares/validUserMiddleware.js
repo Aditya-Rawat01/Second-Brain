@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validUserMiddleware = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const jwtsecret_1 = require("../connection_strings/jwtsecret");
+const jwtsecret_1 = require("../miscellaneous/connection_strings/jwtsecret");
 const validUserMiddleware = (req, res, next) => {
     //const token=localStorage.getItem("token") ~~~~~~~~ put this line in frontend for any further routes and pass it in req headers token
     const token = req.headers.token;

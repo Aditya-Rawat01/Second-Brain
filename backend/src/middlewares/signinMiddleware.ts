@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { reqBody } from "../zodSchema";
 import { users } from "../dbSchema";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { JWTsecret } from "../connection_strings/jwtsecret";
+import { JWTsecret } from "../miscellaneous/connection_strings/jwtsecret";
 export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
     const {username, password}:reqBody=req.body
     try {

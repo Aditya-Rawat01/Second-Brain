@@ -1,5 +1,6 @@
 import mongoose, { model, Schema } from "mongoose";
 
+
 const userSchema=new Schema({
     username:String,
     password:String
@@ -21,3 +22,14 @@ const neuronSchema= new Schema({
 })
 
 export const neuron =model("neurons",neuronSchema)
+
+const sharedBrainSchema= new Schema({
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    },
+    url:String,
+    share:Boolean
+})
+
+export const sharedBrain= mongoose.model("sharedbrains",sharedBrainSchema)

@@ -1,6 +1,6 @@
-import zod, { z } from 'zod'
+import zod, { boolean, z, ZodEnum } from 'zod'
 
-export const UserSchema= zod.object({
+export const UserZodSchema= zod.object({
 
     
     username:zod.string()
@@ -16,4 +16,16 @@ export const UserSchema= zod.object({
                 .refine((password)=>password.match(/[a-z]/)!==null,"Password must contain one small letter")
 
 })
-export type reqBody=z.infer<typeof UserSchema>
+
+
+
+export const neuronZodSchema=zod.object({
+    title:zod.string(),
+    url:zod.string(),
+    type:zod.string()
+
+})
+export const sharedBrainZodschema=zod.object({
+    share:zod.boolean()
+})
+export type reqBody=z.infer<typeof UserZodSchema>

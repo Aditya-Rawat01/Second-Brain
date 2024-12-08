@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signinMiddleware = void 0;
 const dbSchema_1 = require("../dbSchema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const jwtsecret_1 = require("../connection_strings/jwtsecret");
+const jwtsecret_1 = require("../miscellaneous/connection_strings/jwtsecret");
 const signinMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     try {

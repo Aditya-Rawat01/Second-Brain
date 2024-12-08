@@ -14,7 +14,7 @@ const zodSchema_1 = require("../zodSchema");
 const dbSchema_1 = require("../dbSchema");
 const signupMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
-    const ans = zodSchema_1.UserSchema.safeParse({
+    const ans = zodSchema_1.UserZodSchema.safeParse({
         username: username,
         password: password
     });
