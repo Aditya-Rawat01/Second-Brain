@@ -8,6 +8,8 @@ import { validUserMiddleware } from './middlewares/validUserMiddleware'
 import { neuron, sharedBrain } from './dbSchema'
 import { neuronZodSchema, sharedBrainZodschema } from './zodSchema'
 import { uniqueUrl } from './miscellaneous/sharedUrlGenerator'
+/// cors is not imported yet so there can be some errors from frontend
+
 const app=express()
 app.use(express.json())
 mongoose.connect(dbURL)
@@ -128,8 +130,8 @@ app.post("/shareBrain",validUserMiddleware,async(req,res)=>{
                 url:url,
                 share:true
             })
-            res.json({
-                "msg":"Link to your shared brain is: "+url
+                res.json({
+                    "msg":"Link to your shared brain is: "+url
             })}
             else {
                 res.json({
@@ -154,4 +156,58 @@ app.post("/shareBrain",validUserMiddleware,async(req,res)=>{
         })
     }
 })
+
+
+app.post("/shareBrain/:sharedLink",async(req,res)=>{
+    const sharedBrainLink = req.params.sharedLink
+    try {
+      const Brain= await sharedBrain.findOne({
+        url:sharedBrainLink
+    })
+  
+    if (Brain!=null) {
+        const response=await neuron.find({
+        userId:Brain.userId
+        })
+        res.json({
+            "msg":response
+        })
+    } else {
+        res.json({
+            "msg":"Invalid Link"
+        })
+        return;
+    }
+    } catch (error) {
+        res.json({
+            "msg":error
+        })
+    }})
+
+///// when doing app.get("/brain"), we are already getting neuron _id so in frontend 
+//when one click on share neuron button just get neuron id and show him . no use of extra route
+app.post("/shareNeuron/:neuronId",validUserMiddleware,async(req,res)=>{
+    const neuronId=req.params.neuronId
+    try {
+       const foundNeuron=await neuron.findOne({
+        _id:neuronId
+    })
+    if (foundNeuron!==null) {
+        res.json({
+            "msg":foundNeuron
+    }) 
+    } else {
+        res.json({
+            "msg":"Invalid neuron id"
+        })
+    }
+    
+    } catch (error) {
+        res.json({
+            "msg":"neuron id length is invalid"
+        })
+    }
+    
+})
+
 app.listen(3000)

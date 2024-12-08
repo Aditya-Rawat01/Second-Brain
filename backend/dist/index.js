@@ -21,6 +21,7 @@ const validUserMiddleware_1 = require("./middlewares/validUserMiddleware");
 const dbSchema_1 = require("./dbSchema");
 const zodSchema_1 = require("./zodSchema");
 const sharedUrlGenerator_1 = require("./miscellaneous/sharedUrlGenerator");
+/// cors is not imported yet so there can be some errors from frontend
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 mongoose_1.default.connect(db_connection_1.dbURL);
@@ -127,7 +128,7 @@ app.post("/shareBrain", validUserMiddleware_1.validUserMiddleware, (req, res) =>
                     share: true
                 });
                 res.json({
-                    "msg": "Link to your shared brain: " + url
+                    "msg": "Link to your shared brain is: " + url
                 });
             }
             else {
@@ -150,6 +151,58 @@ app.post("/shareBrain", validUserMiddleware_1.validUserMiddleware, (req, res) =>
     else {
         res.json({
             "msg": "Some fields are empty"
+        });
+    }
+}));
+app.post("/shareBrain/:sharedLink", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const sharedBrainLink = req.params.sharedLink;
+    try {
+        const Brain = yield dbSchema_1.sharedBrain.findOne({
+            url: sharedBrainLink
+        });
+        if (Brain != null) {
+            const response = yield dbSchema_1.neuron.find({
+                userId: Brain.userId
+            });
+            res.json({
+                "msg": response
+            });
+        }
+        else {
+            res.json({
+                "msg": "Invalid Link"
+            });
+            return;
+        }
+    }
+    catch (error) {
+        res.json({
+            "msg": error
+        });
+    }
+}));
+///// when doing app.get("/brain"), we are already getting neuron _id so in frontend 
+//when one click on share neuron button just get neuron id and show him . no use of extra route
+app.post("/shareNeuron/:neuronId", validUserMiddleware_1.validUserMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const neuronId = req.params.neuronId;
+    try {
+        const foundNeuron = yield dbSchema_1.neuron.findOne({
+            _id: neuronId
+        });
+        if (foundNeuron !== null) {
+            res.json({
+                "msg": foundNeuron
+            });
+        }
+        else {
+            res.json({
+                "msg": "Invalid neuron id"
+            });
+        }
+    }
+    catch (error) {
+        res.json({
+            "msg": error
         });
     }
 }));

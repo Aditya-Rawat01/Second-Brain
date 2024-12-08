@@ -23,6 +23,7 @@ const neuronSchema= new Schema({
 
 export const neuron =model("neurons",neuronSchema)
 
+
 const sharedBrainSchema= new Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
