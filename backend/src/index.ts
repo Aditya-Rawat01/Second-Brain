@@ -1,5 +1,5 @@
 import express from 'express'
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 import { dbURL } from './connection_strings/db_connection'
 import { signupMiddleware } from './middlewares/signupMiddleware'
 import { Jwt } from 'jsonwebtoken'
@@ -41,7 +41,7 @@ app.post("/neuron",validUserMiddleware, async(req,res)=>{
         createdAt:date.toDateString()
     })
     res.json({
-        "msg":"ok"
+        "msg":"neuron added successfully"
     }) 
     } catch (error) {
         res.json({
@@ -50,5 +50,22 @@ app.post("/neuron",validUserMiddleware, async(req,res)=>{
         return;
     }
     
+})
+
+app.get("/neuron",validUserMiddleware,async (req,res)=>{
+    try {
+        const brain=await neuron.find({
+            userId:req.id
+        })
+        res.json({
+            "msg":brain
+        })
+
+    } catch (error) {
+        res.json({
+            "msg":"error occured "+ error 
+        })
+        return;
+    }
 })
 app.listen(3000)

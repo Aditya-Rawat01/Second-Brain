@@ -10,7 +10,8 @@ const validUserMiddleware = (req, res, next) => {
     //const token=localStorage.getItem("token") ~~~~~~~~ put this line in frontend for any further routes and pass it in req headers token
     const token = req.headers.token;
     try {
-        jsonwebtoken_1.default.verify(token, jwtsecret_1.JWTsecret);
+        const tokenObj = jsonwebtoken_1.default.verify(token, jwtsecret_1.JWTsecret);
+        req.id = tokenObj.id;
         next();
     }
     catch (error) {
@@ -19,6 +20,5 @@ const validUserMiddleware = (req, res, next) => {
         });
         return;
     }
-    next();
 };
 exports.validUserMiddleware = validUserMiddleware;

@@ -19,16 +19,27 @@ const signupMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         password: password
     });
     if (ans.success) {
-        try {
-            yield dbSchema_1.users.create({
-                username: username,
-                password: password
-            });
-            next();
+        const existingUser = yield dbSchema_1.users.findOne({
+            username: username
+        });
+        if (existingUser === null) {
+            try {
+                yield dbSchema_1.users.create({
+                    username: username,
+                    password: password
+                });
+                next();
+            }
+            catch (error) {
+                res.json({
+                    "msg": "Error while creating a new user"
+                });
+                return;
+            }
         }
-        catch (error) {
+        else {
             res.json({
-                "msg": "Error while creating a new user"
+                "msg": "Username already exists. Try signing in"
             });
             return;
         }

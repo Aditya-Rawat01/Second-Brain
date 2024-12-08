@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { reqBody } from "../zodSchema";
 import { users } from "../dbSchema";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { JWTsecret } from "../connection_strings/jwtsecret";
 export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
     const {username, password}:reqBody=req.body
@@ -11,7 +11,7 @@ export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=
     })
     
     if (userFound!==null) {
-        const token = jwt.sign(userFound._id,JWTsecret)
+        const token = jwt.sign({"id":userFound._id},JWTsecret)
         //localStorage.setItem("token",token) ~~~~~~~~~~~~~~~ put it in frontend while signing up
         req.token=token
         next()   
@@ -26,7 +26,7 @@ export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=
     
     } catch (error) {
         res.json({
-            "msg":"Error occurred while fetching from db"
+            "msg":error
         })
         return;
     }
