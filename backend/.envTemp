@@ -1,0 +1,3 @@
+GEMINI_API_KEY="Your Gemini key"
+dbURL="Your mongodb URl"
+JWTsecret="your secret" 
