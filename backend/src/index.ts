@@ -1,6 +1,6 @@
 import express from 'express'
 import mongoose, { ObjectId } from 'mongoose'
-import { dbURL } from './miscellaneous/connection_strings/db_connection'
+
 import { signupMiddleware } from './middlewares/signupMiddleware'
 import { Jwt } from 'jsonwebtoken'
 import { signinMiddleware } from './middlewares/signinMiddleware'
@@ -12,7 +12,12 @@ import { uniqueUrl } from './miscellaneous/sharedUrlGenerator'
 
 const app=express()
 app.use(express.json())
-mongoose.connect(dbURL)
+try {
+    mongoose.connect(process.env.dbURL as string)
+} catch (error) {
+    console.log("Error occurred")
+}
+
 
 declare global {
     namespace Express {                         /// token and id property is now attached as optional prop to req object

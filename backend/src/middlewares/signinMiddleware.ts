@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { reqBody } from "../zodSchema";
 import { users } from "../dbSchema";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { JWTsecret } from "../miscellaneous/connection_strings/jwtsecret";
+
 export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=>{
     const {username, password}:reqBody=req.body
     try {
@@ -11,7 +11,7 @@ export const signinMiddleware=async(req:Request,res:Response,next:NextFunction)=
     })
     
     if (userFound!==null) {
-        const token = jwt.sign({"id":userFound._id},JWTsecret)
+        const token = jwt.sign({"id":userFound._id},process.env.JWTsecret as string)
         //localStorage.setItem("token",token) ~~~~~~~~~~~~~~~ put it in frontend while signing up
         req.token=token
         next()   

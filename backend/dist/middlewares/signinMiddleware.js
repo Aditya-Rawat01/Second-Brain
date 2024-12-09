@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signinMiddleware = void 0;
 const dbSchema_1 = require("../dbSchema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const jwtsecret_1 = require("../miscellaneous/connection_strings/jwtsecret");
 const signinMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     try {
@@ -23,7 +22,7 @@ const signinMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, f
             username: username
         });
         if (userFound !== null) {
-            const token = jsonwebtoken_1.default.sign({ "id": userFound._id }, jwtsecret_1.JWTsecret);
+            const token = jsonwebtoken_1.default.sign({ "id": userFound._id }, process.env.JWTsecret);
             //localStorage.setItem("token",token) ~~~~~~~~~~~~~~~ put it in frontend while signing up
             req.token = token;
             next();

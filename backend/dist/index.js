@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const db_connection_1 = require("./miscellaneous/connection_strings/db_connection");
 const signupMiddleware_1 = require("./middlewares/signupMiddleware");
 const signinMiddleware_1 = require("./middlewares/signinMiddleware");
 const validUserMiddleware_1 = require("./middlewares/validUserMiddleware");
@@ -24,7 +23,12 @@ const sharedUrlGenerator_1 = require("./miscellaneous/sharedUrlGenerator");
 /// cors is not imported yet so there can be some errors from frontend
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-mongoose_1.default.connect(db_connection_1.dbURL);
+try {
+    mongoose_1.default.connect(process.env.dbURL);
+}
+catch (error) {
+    console.log("Error occurred");
+}
 app.post("/signup", signupMiddleware_1.signupMiddleware, (req, res) => {
     res.json({
         msg: "New User signed up successfully"
@@ -202,7 +206,7 @@ app.post("/shareNeuron/:neuronId", validUserMiddleware_1.validUserMiddleware, (r
     }
     catch (error) {
         res.json({
-            "msg": error
+            "msg": "neuron id length is invalid"
         });
     }
 }));
