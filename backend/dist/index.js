@@ -22,6 +22,7 @@ const zodSchema_1 = require("./zodSchema");
 const sharedUrlGenerator_1 = require("./miscellaneous/sharedUrlGenerator");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const generative_ai_1 = require("@google/generative-ai");
 /// cors is not imported yet so there can be some errors from frontend
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -209,6 +210,39 @@ app.post("/shareNeuron/:neuronId", validUserMiddleware_1.validUserMiddleware, (r
     catch (error) {
         res.json({
             "msg": "neuron id length is invalid"
+        });
+    }
+}));
+app.post("/explainAi/:neuronId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const neuronId = req.params.neuronId;
+    try {
+        const foundNeuron = yield dbSchema_1.neuron.findOne({
+            _id: neuronId
+        });
+        if (foundNeuron != null) {
+            const url = foundNeuron.url;
+            const prompt = `Please provide a concise summary of the content available at the following URL: ${url}
+             Your summary should be objective, informative, and free of any personal opinions or biases. 
+             If the URL leads to a document, please include key findings, arguments, or conclusions.
+             If the URL leads to a webpage, please summarize the main purpose and key information presented on the page.`;
+            const result = yield model.generateContent(prompt);
+            res.json({
+                "msg": result.response.text()
+            });
+            return;
+        }
+        else {
+            res.json({
+                "msg": "Invalid neuron id"
+            });
+            return;
+        }
+    }
+    catch (_a) {
+        res.json({
+            msg: "Invalid neuron Id Length"
         });
     }
 }));

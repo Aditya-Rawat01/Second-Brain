@@ -10,6 +10,7 @@ import { neuronZodSchema, sharedBrainZodschema } from './zodSchema'
 import { uniqueUrl } from './miscellaneous/sharedUrlGenerator'
 import dotenv from 'dotenv'
 dotenv.config()
+import { GoogleGenerativeAI } from "@google/generative-ai"
 /// cors is not imported yet so there can be some errors from frontend
 const app=express()
 app.use(express.json())
@@ -216,4 +217,41 @@ app.post("/shareNeuron/:neuronId",validUserMiddleware,async(req,res)=>{
     
 })
 
+
+// works but gemini is not able to directly access the twitter . Have to extract the text and image fro the tweet
+
+
+app.post("/explainAi/:neuronId",async (req,res)=>{
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
+    
+    const neuronId = req.params.neuronId
+    try {
+        const foundNeuron=await neuron.findOne({
+         _id:neuronId
+     })
+        if (foundNeuron!=null) {
+            const url=foundNeuron.url
+            const prompt = `Please provide a concise summary of the content available at the following URL: ${url}
+             Your summary should be objective, informative, and free of any personal opinions or biases. 
+             If the URL leads to a document, please include key findings, arguments, or conclusions.
+             If the URL leads to a webpage, please summarize the main purpose and key information presented on the page.`
+            const result = await model.generateContent(prompt);
+            res.json({
+                "msg":result.response.text()
+            })
+            return;
+        } else {
+            res.json({
+                "msg":"Invalid neuron id"
+            })
+            return;
+        }    
+    }
+    catch {
+        res.json({
+            msg:"Invalid neuron Id Length"
+        })
+     }
+})
 app.listen(3000)
