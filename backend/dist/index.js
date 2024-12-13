@@ -20,6 +20,8 @@ const validUserMiddleware_1 = require("./middlewares/validUserMiddleware");
 const dbSchema_1 = require("./dbSchema");
 const zodSchema_1 = require("./zodSchema");
 const sharedUrlGenerator_1 = require("./miscellaneous/sharedUrlGenerator");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 /// cors is not imported yet so there can be some errors from frontend
 const app = (0, express_1.default)();
 app.use(express_1.default.json());

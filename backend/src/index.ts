@@ -8,8 +8,9 @@ import { validUserMiddleware } from './middlewares/validUserMiddleware'
 import { neuron, sharedBrain } from './dbSchema'
 import { neuronZodSchema, sharedBrainZodschema } from './zodSchema'
 import { uniqueUrl } from './miscellaneous/sharedUrlGenerator'
+import dotenv from 'dotenv'
+dotenv.config()
 /// cors is not imported yet so there can be some errors from frontend
-
 const app=express()
 app.use(express.json())
 try {
