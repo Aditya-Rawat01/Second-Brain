@@ -218,7 +218,7 @@ app.post("/shareNeuron/:neuronId",validUserMiddleware,async(req,res)=>{
 })
 
 
-// works but gemini is not able to directly access the twitter . Have to extract the text and image fro the tweet
+// doesnt work.... gives wrong summary.....
 
 
 app.post("/explainAi/:neuronId",async (req,res)=>{

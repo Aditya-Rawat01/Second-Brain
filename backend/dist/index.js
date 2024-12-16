@@ -213,6 +213,7 @@ app.post("/shareNeuron/:neuronId", validUserMiddleware_1.validUserMiddleware, (r
         });
     }
 }));
+// doesnt work.... gives wrong summary.....
 app.post("/explainAi/:neuronId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
