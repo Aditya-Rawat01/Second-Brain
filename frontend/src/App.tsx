@@ -1,13 +1,16 @@
 
 import './index.css'
-import { Button } from './Components/Button'
+
+import { ContentModal } from './Components/ContentModalComponent/ContentModal'
+import { Button } from './Components/ButtonComponent/Button'
+
 
 function App() {
  
   return (
     <div className='p-5 flex w-screen items-center justify-around'>
-      <Button text='Value1' size='sm' variant='primary' shadow="shadow"/>
-      <Button text='Value1' size='md' variant='secondary' shadow="shadow"/>
+      <ContentModal title='Yt video' url="val" description='Checking'/>
+      
     </div>
   )
 }

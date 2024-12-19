@@ -10,7 +10,8 @@ export default {
         'customShadow':`-3px 5px 3px gray`
       },
       colors:{
-        'secondary':'#213555'
+        'secondary':'#213555',
+        'primary':'#D1D5DB'
       }
     },
   },
