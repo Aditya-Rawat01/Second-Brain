@@ -1,8 +1,6 @@
 
 import './index.css'
 
-import { ContentModal } from './Components/ContentModalComponent/ContentModal'
-import { Button } from './Components/ButtonComponent/Button'
 import { Sidebar } from './Components/SidebarComponent/Sidebar'
 import { Topbar } from './Components/TopbarComponent/Topbar'
 import { HeroComponent } from './Components/HeroComponent/HeroComponent'
