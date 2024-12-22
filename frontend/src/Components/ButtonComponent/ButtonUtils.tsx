@@ -7,7 +7,8 @@ export interface ButtonProps {
     variant:'primary'|'secondary'|'sidebarButton',
     startingIcon?:ReactElement,
     endingIcon?:ReactElement,
-    shadow:'shadow'|'noShadow'
+    shadow:'shadow'|'noShadow',
+    onclick?:()=>void
 }
 
 export const ButtonStyles = {

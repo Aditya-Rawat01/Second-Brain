@@ -25,11 +25,12 @@ export const HeroComponent=()=>{
 
 
             <div className="min-h-[calc(100%-72px)] h-fit pt-5 w-full bg-white border border-primary flex flex-wrap gap-3 items-center justify-center  rounded-t-[35px]">
-                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world"/>
-                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world"/>
-                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world"/>
-                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world"/>
-                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world"/>
+                {/*Provide _id in place of id */}
+                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world" id={1}/>
+                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world" id={2}/>
+                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world" id={3}/>
+                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world" id={4}/>
+                <ContentModal title="twitter" url="http://fadf" description="Hello world oh hello world" id={5}/>
             </div>
         </div>
     )
