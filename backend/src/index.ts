@@ -1,6 +1,6 @@
 import express from 'express'
 import mongoose, { ObjectId } from 'mongoose'
-
+import cors from 'cors'
 import { signupMiddleware } from './middlewares/signupMiddleware'
 import { Jwt } from 'jsonwebtoken'
 import { signinMiddleware } from './middlewares/signinMiddleware'
@@ -12,8 +12,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 import { GoogleGenerativeAI } from "@google/generative-ai"
 /// cors is not imported yet so there can be some errors from frontend
+
 const app=express()
 app.use(express.json())
+app.use(cors())
 try {
     mongoose.connect(process.env.dbURL as string)
 } catch (error) {

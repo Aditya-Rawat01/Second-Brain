@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const cors_1 = __importDefault(require("cors"));
 const signupMiddleware_1 = require("./middlewares/signupMiddleware");
 const signinMiddleware_1 = require("./middlewares/signinMiddleware");
 const validUserMiddleware_1 = require("./middlewares/validUserMiddleware");
@@ -26,6 +27,7 @@ const generative_ai_1 = require("@google/generative-ai");
 /// cors is not imported yet so there can be some errors from frontend
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 try {
     mongoose_1.default.connect(process.env.dbURL);
 }
