@@ -3,6 +3,6 @@ export interface ContentModalProps {
     type:"twitter"|"youtube"|"doc"
     url: string,
     description:string,
-    id:number
+    _id:number
     
 }

@@ -6,7 +6,7 @@ import { CancelIcon } from "../../Icons/CancelIcon"
 
 
 export const ContentModal =(props:ContentModalProps)=>{
-    const [deskAiSwitch,setDeskAiSwitch]= useRecoilState(DescAiSwitch(props.id))
+    const [deskAiSwitch,setDeskAiSwitch]= useRecoilState(DescAiSwitch(props._id))
     return (
         <div className="w-[140px] h-[165px] sm:w-[245px] sm:h-[250px] bg-primary flex flex-col rounded-md items-center justify-around relative">
             <p className="text-xs sm:text-base">{props.title}</p>
