@@ -1,6 +1,7 @@
 import { ReactElement } from "react"
 
 
+
 export interface ButtonProps {
     size:"brain-res"|"ai-responsive"|"side-res",
     text:string,

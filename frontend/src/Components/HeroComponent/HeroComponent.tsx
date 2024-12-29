@@ -1,4 +1,4 @@
-import { useRecoilState, useSetRecoilState } from "recoil"
+import { RecoilState, RecoilValue, useRecoilState, useSetRecoilState } from "recoil"
 import { Button } from "../ButtonComponent/Button"
 import { SidebarSwitch } from "../../RecoilAtoms/SidebarSwitch"
 import { HamMenu } from "../../Icons/HamMenu"
@@ -7,7 +7,6 @@ import { AddNeuron } from "../../Icons/AddNeuron"
 import { ContentModal } from "../ContentModalComponent/ContentModal"
 import { AddNeuronAtom } from "../../RecoilAtoms/AddNeuronAtom"
 import { AddNeuronModal } from "../AddNeuronComponent/AddNeuronModal"
-import { neuronData } from "../../RecoilAtoms/NeuronData"
 import { getBrainHook } from "../../DataFetchingHooks/getBrainHook"
 import { ContentModalProps } from "../ContentModalComponent/ContentModalUtils"
  
@@ -21,7 +20,6 @@ export const HeroComponent=()=>{
     if (isError) {
         return <>Error</>
     }
-    console.log(typeof(data?.data.msg))
     return (
         <div className=" absolute right-0 w-full h-[calc(100%-48px)] lg:h-[calc(100%-48px)] bottom-0 lg:w-[calc(100%-450px)] z-0">
             <div className="h-[72px] w-full flex  justify-between items-center">
@@ -31,7 +29,7 @@ export const HeroComponent=()=>{
                 <div className="w-[260px] h-fit md:w-[400px] lg:w-[310px] flex justify-between pr-1">
                     
                     <Button text="Share Brain" size="brain-res" variant="secondary" shadow="shadow" startingIcon={<ShareBrainIcon/>}/>
-                    <Button text="Add Neuron" size="brain-res" variant="primary" shadow="shadow" startingIcon={<AddNeuron/>} onclick={()=>setAddneuronAtom(true)}/>
+                    <Button text="Add Neuron" size="brain-res" variant="primary" shadow="shadow" startingIcon={<AddNeuron/>} onclick={()=>setAddneuronAtom((prev)=>!prev)}/>
                     {AddNeuronVal && <AddNeuronModal/>}
                 </div>
             </div>
