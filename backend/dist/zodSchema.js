@@ -18,7 +18,8 @@ exports.UserZodSchema = zod_1.default.object({
 exports.neuronZodSchema = zod_1.default.object({
     title: zod_1.default.string(),
     url: zod_1.default.string(),
-    type: zod_1.default.string()
+    type: zod_1.default.string(),
+    description: zod_1.default.string()
 });
 exports.sharedBrainZodschema = zod_1.default.object({
     share: zod_1.default.boolean()

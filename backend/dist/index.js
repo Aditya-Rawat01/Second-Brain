@@ -45,11 +45,12 @@ app.post("/signin", signinMiddleware_1.signinMiddleware, (req, res) => {
     });
 });
 app.post("/neuron", validUserMiddleware_1.validUserMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { type, url, title } = req.body;
+    const { type, url, title, description } = req.body;
     const ans = zodSchema_1.neuronZodSchema.safeParse({
         type: type,
         url: url,
-        title: title
+        title: title,
+        description: description
     });
     if (ans.success) {
         const date = new Date();
@@ -58,6 +59,7 @@ app.post("/neuron", validUserMiddleware_1.validUserMiddleware, (req, res) => __a
                 type: type,
                 url: url,
                 title: title,
+                description: description,
                 userId: req.id,
                 createdAt: date.toDateString()
             });
@@ -67,7 +69,7 @@ app.post("/neuron", validUserMiddleware_1.validUserMiddleware, (req, res) => __a
         }
         catch (error) {
             res.json({
-                "msg": "error while creating new neuron"
+                "msg": "error while creating new neuron" + error
             });
             return;
         }

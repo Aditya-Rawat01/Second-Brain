@@ -15,6 +15,7 @@ const neuronSchema= new Schema({
     },
     url:String,
     title:String,
+    description:String,
     userId:{type:mongoose.Schema.Types.ObjectId,
         ref:'users'
     },

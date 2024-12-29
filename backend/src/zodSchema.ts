@@ -22,7 +22,8 @@ export const UserZodSchema= zod.object({
 export const neuronZodSchema=zod.object({
     title:zod.string(),
     url:zod.string(),
-    type:zod.string()
+    type:zod.string(),
+    description:zod.string()
 
 })
 export const sharedBrainZodschema=zod.object({

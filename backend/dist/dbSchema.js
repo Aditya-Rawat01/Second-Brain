@@ -47,6 +47,7 @@ const neuronSchema = new mongoose_1.Schema({
     },
     url: String,
     title: String,
+    description: String,
     userId: { type: mongoose_1.default.Schema.Types.ObjectId,
         ref: 'users'
     },
