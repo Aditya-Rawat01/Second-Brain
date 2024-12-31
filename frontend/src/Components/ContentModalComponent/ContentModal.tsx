@@ -3,13 +3,22 @@ import { Button } from "../ButtonComponent/Button"
 import { ContentModalProps } from "./ContentModalUtils"
 import { DescAiSwitch } from "../../RecoilAtoms/DescAiSwitch"
 import { CancelIcon } from "../../Icons/CancelIcon"
+import DeleteNeuron from "../../Icons/DeleteNeuron"
+import { deleteNeuronHook } from "../../DataFetchingHooks/deleteNeuronHook"
 
 
 export const ContentModal =(props:ContentModalProps)=>{
     const [deskAiSwitch,setDeskAiSwitch]= useRecoilState(DescAiSwitch(props._id))
+    async function TempDeletingWithoutReactQuery(param:string) {
+        const res=await deleteNeuronHook(param)
+        console.log(res)
+    }
     return (
         <div className="w-[140px] h-[165px] sm:w-[245px] sm:h-[250px] bg-primary flex flex-col rounded-md items-center justify-around relative">
-            <p className="text-xs sm:text-base">{props.title}</p>
+            <div className="w-full flex items-center justify-between">
+                <p className="text-xs sm:text-base">{props.title}</p>
+                <div className="hover:cursor-pointer" onClick={()=>TempDeletingWithoutReactQuery(props._id)}><DeleteNeuron/></div>
+            </div>
             <div className="w-[88%] h-[66%] bg-white rounded-md">
             // yt embed | tweet embed | doc embed
             </div>
