@@ -11,7 +11,7 @@ export const ContentModal =(props:ContentModalProps)=>{
     const [deskAiSwitch,setDeskAiSwitch]= useRecoilState(DescAiSwitch(props._id))
     async function TempDeletingWithoutReactQuery(param:string) {
         const res=await deleteNeuronHook(param)
-        console.log(res)
+     
     }
     return (
         <div className="w-[140px] h-[165px] sm:w-[245px] sm:h-[250px] bg-primary flex flex-col rounded-md items-center justify-around relative">

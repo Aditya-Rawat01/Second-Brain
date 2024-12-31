@@ -12,7 +12,7 @@ export const Sidebar=()=>{
     const [sidebar,setSidebar]=useRecoilState(SidebarSwitch)
     return (
         <div
-        className={`bg-white z-10 border border-primary rounded-tr-[32px] bottom-0 fixed lg:h-full lg:w-[450px] transition-all duration-[1s] ease-in-out w-[270px] h-[560px] sm:w-[500px] sm:h-[765px] ${!sidebar?"left-[-100%] lg:left-[0%]":" left-0 "}`}
+        className={`bg-white z-10 border border-primary rounded-tr-[32px] bottom-0 fixed lg:h-full lg:w-[450px] transition-all duration-[1s] ease-in-out w-[270px] h-[560px] sm:w-[500px] sm:h-[calc(100%-50px)] ${!sidebar?"left-[-100%] lg:left-[0%]":" left-0 "}`}
        
         >
             <div className="pt-6  pl-2 h-24 lg:invisible" onClick={()=>setSidebar(false)}><CancelIcon size="size-6"/></div>

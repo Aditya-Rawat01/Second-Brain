@@ -13,7 +13,7 @@ import { ContentModalProps } from "../ContentModalComponent/ContentModalUtils"
 export const HeroComponent=()=>{
     const {data, isLoading, isError}=getBrainHook()
     const setSidebar=useSetRecoilState(SidebarSwitch)
-    const [AddNeuronVal,setAddneuronAtom]=useRecoilState(AddNeuronAtom)
+    const [,setAddneuronAtom]=useRecoilState(AddNeuronAtom)
     if (isLoading) {
         return <>Loading...</>
     }
@@ -30,7 +30,7 @@ export const HeroComponent=()=>{
                     
                     <Button text="Share Brain" size="brain-res" variant="secondary" shadow="shadow" startingIcon={<ShareBrainIcon/>}/>
                     <Button text="Add Neuron" size="brain-res" variant="primary" shadow="shadow" startingIcon={<AddNeuron/>} onclick={()=>setAddneuronAtom((prev)=>!prev)}/>
-                    {AddNeuronVal && <AddNeuronModal/>}
+                    {<AddNeuronModal/>}
                 </div>
             </div>
 
