@@ -1,4 +1,4 @@
-import {  RecoilState, SetRecoilState, useRecoilState, useSetRecoilState } from "recoil"
+import {   useRecoilState, useSetRecoilState } from "recoil"
 import { AddNeuronAtom } from "../../RecoilAtoms/AddNeuronAtom"
 import { CancelIcon } from "../../Icons/CancelIcon"
 import { NeuronTypeAtom } from "../../RecoilAtoms/NeuronTypeAtom"
@@ -25,6 +25,8 @@ export const AddNeuronModal=()=>{
        else {
         type="youtube"
        }
+
+       //this postNeuronHook can be better with useMutation. Also with useMutation we will be able to run the getBrain() query again (query invalidation) 
         postNeuronHook({type,url,title,description})
         setStateVal(false)
    }

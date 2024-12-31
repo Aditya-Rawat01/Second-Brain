@@ -1,4 +1,4 @@
-import { RecoilState, RecoilValue, useRecoilState, useSetRecoilState } from "recoil"
+import { useRecoilState, useSetRecoilState } from "recoil"
 import { Button } from "../ButtonComponent/Button"
 import { SidebarSwitch } from "../../RecoilAtoms/SidebarSwitch"
 import { HamMenu } from "../../Icons/HamMenu"
@@ -40,7 +40,7 @@ export const HeroComponent=()=>{
                 
                 
                 {(typeof(data?.data.msg)!='string')?data?.data.msg.map((index:ContentModalProps)=><ContentModal key={index._id} title={index.title} type={index.type} url={index.url} description={index.description} _id={index._id}/>)
-                                                    :data.data.msg}
+                                                   :data.data.msg}
             
                
             </div>
