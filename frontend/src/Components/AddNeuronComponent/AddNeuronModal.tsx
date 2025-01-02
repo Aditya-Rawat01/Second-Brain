@@ -1,10 +1,10 @@
-import {   useRecoilState, useSetRecoilState } from "recoil"
+import {   useRecoilState } from "recoil"
 import { AddNeuronAtom } from "../../RecoilAtoms/AddNeuronAtom"
 import { CancelIcon } from "../../Icons/CancelIcon"
 import { NeuronTypeAtom } from "../../RecoilAtoms/NeuronTypeAtom"
 
 import { useRef } from "react"
-import { postNeuronHook } from "../../DataFetchingHooks/postNeuronHook"
+import { usePostNeuronHook } from "../../DataFetchingHooks/postNeuronHook"
 
 
 export const AddNeuronModal=()=>{
@@ -13,7 +13,7 @@ export const AddNeuronModal=()=>{
    const titleRef=useRef<HTMLInputElement>(null)
    const UrlRef=useRef<HTMLInputElement>(null)
    const descRef=useRef<HTMLInputElement>(null)
-  
+   const {mutate, isLoading} =usePostNeuronHook()
    function PostNeuron() {
        const title=titleRef.current?.value as string
        const url=UrlRef.current?.value as string
@@ -27,8 +27,8 @@ export const AddNeuronModal=()=>{
        }
 
        //this postNeuronHook can be better with useMutation. Also with useMutation we will be able to run the getBrain() query again (query invalidation) 
-        postNeuronHook({type,url,title,description})
-        setNeuronAtom(false)
+       mutate({type,url,title,description})
+       setNeuronAtom(false)
    }
    
     return (

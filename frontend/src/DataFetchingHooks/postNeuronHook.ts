@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import { URI } from "./publicUrl"
+import { useMutation, useQueryClient } from "react-query"
 
 export interface postNeuronProps {
     type:String
@@ -26,9 +27,13 @@ async function postNeuron({type, url, title, description}:postNeuronProps) {
 }
 
 
-
-export  async function postNeuronHook ({type, url, title,description}:postNeuronProps){
-    const response=await postNeuron({type,url,title,description})
-    console.log(response)
-    return;
+export function usePostNeuronHook (){
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationKey:["postNeuron"],
+        mutationFn:postNeuron,
+        onSuccess() {
+            queryClient.invalidateQueries({queryKey:["fetcher"]})
+        },
+    })
 }

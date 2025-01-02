@@ -4,20 +4,25 @@ import { ContentModalProps } from "./ContentModalUtils"
 import { DescAiSwitch } from "../../RecoilAtoms/DescAiSwitch"
 import { CancelIcon } from "../../Icons/CancelIcon"
 import DeleteNeuron from "../../Icons/DeleteNeuron"
-import { deleteNeuronHook } from "../../DataFetchingHooks/deleteNeuronHook"
+import { deleteNeuronHook, usedeleteNeuronHook } from "../../DataFetchingHooks/deleteNeuronHook"
+import { ShareBrainIcon } from "../../Icons/ShareBrainIcon"
 
 
 export const ContentModal =(props:ContentModalProps)=>{
     const [deskAiSwitch,setDeskAiSwitch]= useRecoilState(DescAiSwitch(props._id))
-    async function TempDeletingWithoutReactQuery(param:string) {
-        const res=await deleteNeuronHook(param)
+    const {mutate}=usedeleteNeuronHook()
+    function NeuronDel(param:string) {
+        mutate(param)
      
     }
     return (
         <div className="w-[140px] h-[165px] sm:w-[245px] sm:h-[250px] bg-primary flex flex-col rounded-md items-center justify-around relative">
-            <div className="w-full flex items-center justify-between">
+            <div className="w-[90%] flex items-center justify-between">
                 <p className="text-xs sm:text-base">{props.title}</p>
-                <div className="hover:cursor-pointer" onClick={()=>TempDeletingWithoutReactQuery(props._id)}><DeleteNeuron/></div>
+                <div className="flex gap-2">
+                    <div className="hover:cursor-pointer" onClick={()=>NeuronDel(props._id)}><DeleteNeuron/></div>
+                    <div className="hover:cursor-pointer"><ShareBrainIcon/></div>
+                </div>
             </div>
             <div className="w-[88%] h-[66%] bg-white rounded-md">
             // yt embed | tweet embed | doc embed

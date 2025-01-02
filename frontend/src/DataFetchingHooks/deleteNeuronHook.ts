@@ -1,5 +1,6 @@
 import axios from "axios";
 import { URI } from "./publicUrl";
+import { useMutation, useQueryClient } from "react-query";
 
 export async function deleteNeuronHook(param:string) {
     const res=await axios.delete(`${URI}/${param}`,{
@@ -9,4 +10,14 @@ export async function deleteNeuronHook(param:string) {
         }
     })
     return res.data;
+}
+export function usedeleteNeuronHook() {
+    const queryClient=useQueryClient()
+    return useMutation({
+        mutationKey:["deleteNeuron"],
+        mutationFn:deleteNeuronHook,
+        onSuccess() {
+            queryClient.invalidateQueries({queryKey:["fetcher"]})
+        }
+    })
 }

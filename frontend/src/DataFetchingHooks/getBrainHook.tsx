@@ -1,8 +1,7 @@
 import axios from "axios"
 import { useQuery } from "react-query"
 import { URI } from "./publicUrl"
-import { neuronData } from "../RecoilAtoms/NeuronData"
-import { useRecoilState } from "recoil"
+
 
 const fetchFn=async () => {
         const res=await axios.get(`${URI}/brain`,{
@@ -18,7 +17,7 @@ const fetchFn=async () => {
 export const getBrainHook=()=>{
     
     const {data, isLoading, isError} = useQuery({
-        queryKey:"fetcher",
+        queryKey:["fetcher"],
         queryFn: fetchFn
     })
    
